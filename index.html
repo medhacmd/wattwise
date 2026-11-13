@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1f1e" />
+    <meta name="description" content="Wattwise turns everyday electricity choices into a clear, playable energy cockpit." />
+    <title>Wattwise — Power, on purpose.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="appShell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="Wattwise home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-name">wattwise</span>
+        </a>
+        <div class="topbar-meta">
+          <span class="live-pill"><span class="live-dot"></span><span id="modeLabel">NORMAL MODE</span></span>
+          <span class="topbar-date">FRI · 13 NOV 2026</span>
+          <button class="icon-button" id="helpButton" type="button" aria-label="Open help">?</button>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero section-wrap">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span>THE HOME ENERGY COCKPIT</p>
+            <h1>Power,<br /><em>on purpose.</em></h1>
+            <p class="hero-description">See what your home is asking for. Make the call before the bill does.</p>
+            <div class="hero-actions">
+              <button class="power-cut-button" id="powerCutButton" type="button">
+                <span class="button-icon">↯</span>
+                <span><strong id="powerButtonTitle">Trigger power cut</strong><small>Start the 3-appliance challenge</small></span>
+                <span class="button-arrow">↗</span>
+              </button>
+              <div class="micro-note"><span class="pulse-ring"></span><span>SIMULATION ONLY · NO IOT NEEDED</span></div>
+            </div>
+          </div>
+          <div class="hero-meter-card">
+            <div class="meter-card-head"><span>EST. MONTHLY BILL</span><span class="meter-tag" id="billStatusTag">ON TARGET</span></div>
+            <div class="meter-value-row"><span class="currency">₹</span><span class="meter-value" id="heroBill">1,984</span><span class="meter-unit">/ mo</span></div>
+            <div class="meter-track"><span id="billMeterFill"></span><i class="target-marker" aria-label="Target bill"></i></div>
+            <div class="meter-foot"><span><b id="heroKwh">233</b> kWh estimated</span><span>Target <b>₹2,500</b></span></div>
+            <div class="meter-caption"><span class="caption-bar"></span><span id="meterCaption">You have room to keep the living room comfortable.</span></div>
+          </div>
+        </section>
+
+        <section class="stats-strip section-wrap" aria-label="Energy summary">
+          <div class="stat-card stat-card-accent"><span class="stat-label">LIVE LOAD</span><strong><span id="liveWatts">380</span><small> W</small></strong><span class="stat-detail"><span class="status-led"></span><span id="activeCount">4</span> of 7 appliances on</span></div>
+          <div class="stat-card"><span class="stat-label">DAILY ESTIMATE</span><strong><span id="dailyKwh">7.8</span><small> kWh</small></strong><span class="stat-detail">Based on your current rhythm</span></div>
+          <div class="stat-card"><span class="stat-label">BILL BUFFER</span><strong><span id="billBuffer">₹516</span></strong><span class="stat-detail" id="bufferDetail">before you hit target</span></div>
+          <div class="stat-card stat-card-action"><span class="stat-label">YOUR TARIFF</span><strong>₹8.50<small> / kWh</small></strong><button class="text-button" id="tariffButton" type="button">Edit assumption <span>↗</span></button></div>
+        </section>
+
+        <section class="dashboard-grid section-wrap">
+          <div class="appliance-section panel">
+            <div class="section-heading">
+              <div><p class="eyebrow small"><span class="eyebrow-line"></span>01 · YOUR APPLIANCES</p><h2>What’s running<br /><span>right now?</span></h2></div>
+              <div class="section-heading-note"><span class="tiny-grid"></span><span>Tap a card to toggle</span></div>
+            </div>
+            <div class="appliance-grid" id="applianceGrid"></div>
+          </div>
+
+          <aside class="insight-panel panel">
+            <div class="section-heading compact"><div><p class="eyebrow small"><span class="eyebrow-line"></span>02 · THE READOUT</p><h2>Energy<br /><span>story</span></h2></div><span class="panel-index">A / 03</span></div>
+            <div class="contributors" id="contributors"></div>
+            <div class="insight-callout" id="insightCallout"><span class="callout-mark">!</span><div><strong id="insightTitle">Cooling is your biggest lever.</strong><p id="insightText">Your refrigerator and fan make up the largest slice of today’s load.</p></div></div>
+            <div class="target-line"><span>MONTHLY TARGET</span><strong>₹2,500</strong><span class="target-dot"></span></div>
+          </aside>
+        </section>
+
+        <section class="challenge-section section-wrap" id="challengeSection">
+          <div class="challenge-panel">
+            <div class="challenge-intro">
+              <div class="challenge-kicker"><span class="challenge-icon">↯</span><span>THE TWIST</span></div>
+              <h2>When the grid<br />goes <em>quiet.</em></h2>
+              <p id="challengeIntroText">A simulated outage is coming. Choose the three appliances you would protect first — comfort and cost are both on the line.</p>
+              <button class="outline-button" id="challengeStartButton" type="button"><span id="challengeStartLabel">Enter power-cut mode</span><span>↗</span></button>
+            </div>
+            <div class="challenge-stage" id="challengeStage">
+              <div class="stage-topline"><span class="stage-status"><span class="status-led"></span><span id="stageStatus">WAITING FOR OUTAGE</span></span><span class="stage-rule">MAX 3 ACTIVE · EXACTLY 3 REQUIRED</span></div>
+              <div class="stage-center" id="stageCenter">
+                <div class="stage-orbit"><span class="orbit-dot orbit-dot-one"></span><span class="orbit-dot orbit-dot-two"></span><span class="orbit-dot orbit-dot-three"></span><span class="orbit-core">↯</span></div>
+                <p class="stage-prompt" id="stagePrompt">Ready when you are.</p>
+                <p class="stage-subprompt" id="stageSubprompt">Your current household rhythm is comfortable, but can you make it lean?</p>
+              </div>
+              <div class="stage-score hidden" id="stageScore">
+                <div class="score-topline"><span>YOUR POWER-CUT SET</span><span id="selectionCount">3 / 3 SECURED</span></div>
+                <div class="selection-list" id="selectionList"></div>
+                <div class="score-metrics"><div><span>COMFORT</span><strong><span id="comfortScore">76</span><small>/ 100</small></strong></div><div><span>SAVING / MO</span><strong id="savingScore">₹842</strong></div><div><span>VERDICT</span><strong class="verdict" id="verdictScore">BALANCED</strong></div></div>
+              </div>
+              <div class="stage-tip hidden" id="stageTip"><span>↳</span><span id="stageTipText">Select a card below to swap it into your protected three.</span></div>
+            </div>
+          </div>
+          <div class="choice-rail hidden" id="choiceRail">
+            <div class="choice-rail-head"><div><p class="eyebrow small"><span class="eyebrow-line"></span>CHOOSE YOUR THREE</p><h3>Protect what matters.</h3></div><span class="swap-hint">Select any card to swap it in</span></div>
+            <div class="choice-grid" id="choiceGrid"></div>
+          </div>
+        </section>
+
+        <section class="footer-note section-wrap"><span class="footer-mark">W.</span><p>Wattwise is a decision simulator, not a smart-home controller. All estimates use a fixed ₹8.50 / kWh assumption and 30-day month.</p><span class="footer-end">MAKE THE CALL · SAVE THE DAY</span></section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="help-modal"><button class="modal-close" id="helpClose" type="button" aria-label="Close help">×</button><p class="eyebrow small"><span class="eyebrow-line"></span>QUICK BRIEF</p><h2 id="helpTitle">How to demo<br /><em>Wattwise</em></h2><div class="help-steps"><div><span>01</span><p>Toggle any appliance. The live load, kWh and bill react immediately.</p></div><div><span>02</span><p>Trigger the simulated outage. The app locks the house to exactly three active appliances.</p></div><div><span>03</span><p>Swap cards into your protected trio and watch comfort versus cost change.</p></div></div><button class="outline-button" id="helpDone" type="button">Got it <span>↗</span></button></div>
+    </div>
+    <div class="toast" id="toast" role="status"><span class="toast-icon">↯</span><span id="toastText">Power cut mode is live.</span></div>
+    <script src="/app.js"></script>
+  </body>
+</html>
